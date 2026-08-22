@@ -8,8 +8,26 @@ return {
   -- These are some examples, uncomment them if you want to see them work!
   {
     "neovim/nvim-lspconfig",
+    event = "User FilePost",
     config = function()
       require "configs.lspconfig"
+    end,
+  },
+
+  {
+    "zbirenbaum/copilot.lua",
+    event = "InsertEnter",
+    cmd = "Copilot",
+    config = function()
+      require("copilot").setup {
+        copilot_node_command = vim.fn.expand "~/.local/share/node22/bin/node",
+        suggestion = {
+          auto_trigger = true,
+          keymap = {
+            accept = "<C-l>", -- <Tab> is taken by cmp
+          },
+        },
+      }
     end,
   },
 
