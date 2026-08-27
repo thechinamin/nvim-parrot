@@ -23,6 +23,7 @@ return {
         copilot_node_command = vim.fn.expand "~/.local/share/node22/bin/node",
         suggestion = {
           auto_trigger = true,
+          hide_during_completion = false, -- cmp's menu auto-pops constantly; don't let it hide ghost text
           keymap = {
             accept = "<C-l>", -- <Tab> is taken by cmp
           },
