@@ -18,6 +18,27 @@ map({ "n", "t" }, "<A-i>", function()
   }
 end, { desc = "terminal toggle fullscreen floating term" })
 
+-- telescope find dir (requires `fd` on PATH)
+map("n", "<leader>fd", function()
+  require("telescope.builtin").find_files {
+    prompt_title = "Find Directory",
+    find_command = { "fd", "--type", "d", "--hidden", "--exclude", ".git" },
+    attach_mappings = function(prompt_bufnr, map_key)
+      local actions = require "telescope.actions"
+      local action_state = require "telescope.actions.state"
+      local function cd_to_selection()
+        local entry = action_state.get_selected_entry()
+        actions.close(prompt_bufnr)
+        vim.cmd("cd " .. vim.fn.fnameescape(entry[1]))
+        print("cwd -> " .. entry[1])
+      end
+      map_key("i", "<CR>", cd_to_selection)
+      map_key("n", "<CR>", cd_to_selection)
+      return true
+    end,
+  }
+end, { desc = "telescope find dir (cd)" })
+
 -- harpoon
 map("n", "<leader>a", function()
   require("harpoon"):list():add()
