@@ -22,7 +22,7 @@ end, { desc = "terminal toggle fullscreen floating term" })
 map("n", "<leader>fd", function()
   require("telescope.builtin").find_files {
     prompt_title = "Find Directory",
-    find_command = { "fd", "--type", "d", "--hidden", "--exclude", ".git" },
+    find_command = { "fd", "--type", "d", "--hidden", "--no-ignore-vcs", "--exclude", ".git" },
     attach_mappings = function(prompt_bufnr, map_key)
       local actions = require "telescope.actions"
       local action_state = require "telescope.actions.state"
